@@ -1,0 +1,3 @@
+/node_modules
+# / - do podawania ścieżki do wyszarzenia, używa regex 
+# * - cokolwiek

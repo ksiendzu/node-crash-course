@@ -1,0 +1,37 @@
+<html>
+<%- include('./partials/head.ejs') %>
+
+    <body>
+
+        <%- include('./partials/nav.ejs') %>
+
+        <div class="details content">
+            <h2><%= blog.title %></h2>
+            <div class="content">
+                <p><%= blog.body %></p>
+            </div>
+            <!-- _id prawdopodobnie default value jakie nadaje mongodb -->
+            <a class="delete" data-doc="<%= blog._id %>">delete</a>
+        </div>
+            
+
+        <%- include('./partials/footer.ejs') %>
+    </body>
+
+    <script>
+        const trashcan = document.querySelector('a.delete');
+
+        trashcan.addEventListener('click', (e) => {
+            //BACKTICKS ``
+            const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+            //send delete request to endpoint
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then((response) => response.json()) //this line returns another promise, that passes JSON data
+            .then((data) => window.location.href = data.redirect)
+            .catch(err => console.log(err));
+        })
+    </script>
+</html>

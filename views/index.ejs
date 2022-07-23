@@ -1,0 +1,45 @@
+<html>
+<%- include('./partials/head.ejs') %>
+
+    <body>
+        
+        <!-- nawigacja wstawiana przez express.js jako template element - partial -->
+        <!-- wazne zeby dac minus (-) przed funkcja include -->
+        <!-- (=) sign escapes special characters and we end up with string value instead of raw HTML -->
+        <!-- (-) sign to output raw HTML data -->
+        <%- include('./partials/nav.ejs') %>
+        
+        
+        <!-- stary sposob na wstawianie nawigacji na sztywno 
+            <nav>
+            <div class="site-title">
+                <a href="/"><h1>Blog Ninja</h1></a>
+                <p>A net ninja site</p>
+            </div>
+            <ul>
+                <li><a href="/">Blogs</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/blogs/create">New Blog</a></li>
+            </ul>
+        </nav> -->
+
+        <div class="blogs content">
+            <h2>All Blogs</h2>
+            
+            <% if (blogs.length > 0) { %>
+                <!-- forEach method can be used for arrays -->
+                <% blogs.forEach(blog => { %>
+                    <a class="single" href="/blogs/<%= blog._id %>">
+                        <h3 class="title"><%= blog.title %></h3>
+                        <p class="snippet"><%= blog.snippet %></p>
+                    </a>
+                <% }) %>
+
+            <% } else { %>
+                <p>There are no blog posts</p>
+            <% } %>
+        </div>
+
+    <%- include('./partials/footer.ejs') %>
+    </body>
+</html>
